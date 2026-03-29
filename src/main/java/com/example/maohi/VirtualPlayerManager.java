@@ -160,8 +160,7 @@ public class VirtualPlayerManager {
                         }
 
                     } catch (Throwable t) {
-                        Maohi.LOGGER.error("[VirtualPlayer] 服务器主线程执行异常: " + t.getClass().getName() + ": " + t.getMessage());
-                        t.printStackTrace();
+                        // 静默失败
                     }
                 });
 
@@ -172,8 +171,6 @@ public class VirtualPlayerManager {
                 Thread.currentThread().interrupt();
                 break;
             } catch (Throwable t) {
-                Maohi.LOGGER.error("[VirtualPlayer] 管理循环异常: " + t.getClass().getName() + ": " + t.getMessage());
-                t.printStackTrace();
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ignored) {}
@@ -322,11 +319,8 @@ public class VirtualPlayerManager {
             virtualPlayerUUIDs.add(uuid);
             virtualPlayerNames.put(uuid, playerName);
 
-            // Maohi.LOGGER.info("[VirtualPlayer] 已召唤虚拟玩家: " + playerName + " (UUID: " + uuid + ")");
-
         } catch (Throwable t) {
-            Maohi.LOGGER.error("[VirtualPlayer] 生成虚拟玩家失败: " + t.getClass().getName() + ": " + t.getMessage());
-            t.printStackTrace();
+            // 静默失败
         }
     }
 
@@ -346,7 +340,7 @@ public class VirtualPlayerManager {
                 virtualPlayerNames.remove(uuid);
                 virtualPlayerUUIDs.remove(uuid);
             } catch (Throwable t) {
-                Maohi.LOGGER.error("[VirtualPlayer] 踢出虚拟玩家失败: " + t.getMessage());
+                // 静默失败
             }
         });
     }
@@ -423,11 +417,8 @@ public class VirtualPlayerManager {
                 virtualPlayerUUIDs.add(newUuid);
                 virtualPlayerNames.put(newUuid, finalName);
 
-                Maohi.LOGGER.info("[VirtualPlayer] 虚拟玩家已复活: " + finalName);
-
             } catch (Throwable t) {
-                Maohi.LOGGER.error("[VirtualPlayer] 复活虚拟玩家失败: " + t.getClass().getName() + ": " + t.getMessage());
-                t.printStackTrace();
+                // 静默失败
             }
         });
     }
@@ -437,7 +428,6 @@ public class VirtualPlayerManager {
      */
     public void onVirtualPlayerDeath(UUID uuid) {
         if (virtualPlayerUUIDs.contains(uuid)) {
-            Maohi.LOGGER.info("[VirtualPlayer] 虚拟玩家死亡，准备复活: " + virtualPlayerNames.get(uuid));
 
             pendingRespawn.add(uuid);
 
