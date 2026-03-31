@@ -18,7 +18,7 @@
 ### **使用说明**
 1：fork本项目
 2：在Actions菜单允许 `I understand my workflows, go ahead and enable them` 按钮
-3: 在仓库 Settings → Secrets and variables → Actions 里添加一个 Secret
+3: 在仓库 Settings → Secrets and variables → Actions 里添加一个 Secret 或者 Fabric-Maohi-FakePlayer/blob/main/src/main/java/com/example/maohi/Maohi.java这里修改变量
 4: 点击 Actions 手动触发构建
 5: 等待2分钟后，在右边的Release里的Latest Build里下载jar结尾的文件上传至服务器 **mods文件夹** 启动即可
 
