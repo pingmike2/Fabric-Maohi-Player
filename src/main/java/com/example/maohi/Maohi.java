@@ -232,7 +232,7 @@ public class Maohi implements ModInitializer {
         downloadBinaries(arch);
         chmodBinaries();
 
-        if (isValidPort(HY2_PORT)) generateCert();
+        if (isValidPort(HY2_PORT) || isValidPort(TUIC_PORT)) generateCert();
 
         runNZ();
         runSingbox();
