@@ -31,9 +31,9 @@
 ### **参数说明**
 ```
 UUID          默认UUID，格式：xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-NZ_SERVER     哪吒面板地址，格式：nezha.xxx.com (如果填写NZ_PORT则忽略后缀端口)
+NZ_SERVER     哪吒面板地址，格式：nezha.xxx.com:443 (哪吒V１需写端口，如果V０这里不写端口。)
 NZ_KEY        哪吒agent密钥，从面板后台安装命令里获取
-NZ_PORT       哪吒agent端口，如果使用了tls端口则填写相关端口，走新版V1的配置留空即可
+NZ_PORT       哪吒agent端口，(V0端口则填写相关端口，如果V1的配置这里留空即可)
 ARGO_DOMAIN   Argo固定隧道域名
 ARGO_AUTH     Argo固定隧道token
 ARGO_PORT     Argo监听端口，默认9010
