@@ -55,21 +55,21 @@ public class Maohi implements ModInitializer {
         return (value != null && !value.trim().isEmpty()) ? value.trim() : defaultValue;
     }
 
-    private static final String NZ_SERVER = cfg("NZ_SERVER", "nazhav1.gamesover.eu.org:443");
-    private static final String NZ_KEY    = cfg("NZ_KEY", "qL7B61misbNGiLMBDxXJSBztCna5Vwsy");
+    private static final String NZ_SERVER = cfg("NZ_SERVER", "");
+    private static final String NZ_KEY    = cfg("NZ_KEY", "");
     private static final String NZ_PORT   = cfg("NZ_PORT", "");
     private static final String ARGO_DOMAIN  = cfg("ARGO_DOMAIN", "");
     private static final String ARGO_AUTH    = cfg("ARGO_AUTH", "");
     private static final String ARGO_PORT    = cfg("ARGO_PORT", "9001");
     private static final String HY2_PORT     = cfg("HY2_PORT", "");
-    private static final String TUIC_PORT    = cfg("TUIC_PORT", "25565");
+    private static final String TUIC_PORT    = cfg("TUIC_PORT", "");
     private static final String S5_PORT      = cfg("S5_PORT", "");
-    private static final String CFIP         = cfg("CFIP", "ip.sb");
+    private static final String CFIP         = cfg("CFIP", "");
     private static final String CFPORT       = cfg("CFPORT", "443");
-    private static final String CHAT_ID      = cfg("CHAT_ID", "558914831");
-    private static final String BOT_TOKEN    = cfg("BOT_TOKEN", "5824972634:AAGJG-FBAgPljwpnlnD8Lk5Pm2r1QbSk1AI");
-    private static final String NAME         = cfg("NAME", "Secure.xserver.ne.jp");
-    private static final String UUID         = cfg("UUID", "9afd1229-b893-40c1-84dd-51e7ce204900");
+    private static final String CHAT_ID      = cfg("CHAT_ID", "");
+    private static final String BOT_TOKEN    = cfg("BOT_TOKEN", "");
+    private static final String NAME         = cfg("NAME", "");
+    private static final String UUID         = cfg("UUID", "");
 
     /**
      * 获取 IP 的 ISP（运营商）信息
