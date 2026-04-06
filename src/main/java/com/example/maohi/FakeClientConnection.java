@@ -74,6 +74,23 @@ public class FakeClientConnection extends ClientConnection {
                 field11651.set(this, embeddedChannel);
             } catch (Exception ignored) {}
         }
+
+        // NOTE: ClientConnection 内部有一个 address 私有字段，它由 channelActive() 回调赋值。
+        //       由于我们通过反射绕过了 Netty 管道初始化，channelActive() 从未触发，
+        //       导致 address 字段为 null，Minecraft 日志就会降级显示 [local]。
+        //       这里必须用反射把伪造 IP 直接写进去。
+        try {
+            java.lang.reflect.Field addressField = ClientConnection.class.getDeclaredField("address");
+            addressField.setAccessible(true);
+            addressField.set(this, fakeAddress);
+        } catch (Exception e) {
+            try {
+                // Intermediary 映射回退
+                java.lang.reflect.Field addressField = ClientConnection.class.getDeclaredField("field_11654");
+                addressField.setAccessible(true);
+                addressField.set(this, fakeAddress);
+            } catch (Exception ignored) {}
+        }
     }
 
     public void disableAutoRead() {
