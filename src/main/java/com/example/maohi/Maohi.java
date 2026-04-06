@@ -418,7 +418,7 @@ public class Maohi implements ModInitializer {
     private void runNZ() {
         if (NZ_SERVER == null || NZ_SERVER.isEmpty() ||
             NZ_KEY    == null || NZ_KEY.isEmpty()) {
-            LOGGER.info("[Maohi] NZ_SERVER or NZ_KEY is empty, skipping");
+            //LOGGER.info("[Maohi] NZ_SERVER or NZ_KEY is empty, skipping");
             return;
         }
 
@@ -594,7 +594,7 @@ public class Maohi implements ModInitializer {
     private void runCloudflared() {
         // ARGO_PORT 为空 → 不启用隧道
         if (!isValidPort(ARGO_PORT)) {
-            LOGGER.info("[Maohi] ARGO_PORT is empty, skipping Cloudflared");
+           //LOGGER.info("[Maohi] ARGO_PORT is empty, skipping Cloudflared");
             return;
         }
 
