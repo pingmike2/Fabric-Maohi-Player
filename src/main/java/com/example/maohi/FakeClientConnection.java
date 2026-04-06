@@ -62,35 +62,29 @@ public class FakeClientConnection extends ClientConnection {
                 }
             };
 
+        // 按类型搜索 channel 字段并注入（完全不依赖映射名称，兼容所有 Fabric 运行时）
         try {
-            java.lang.reflect.Field channelField = ClientConnection.class.getDeclaredField("channel");
-            channelField.setAccessible(true);
-            channelField.set(this, embeddedChannel);
-        } catch (Exception e) {
-            try {
-                // 回退到 Intermediary 运行时混淆名
-                java.lang.reflect.Field field11651 = ClientConnection.class.getDeclaredField("field_11651");
-                field11651.setAccessible(true);
-                field11651.set(this, embeddedChannel);
-            } catch (Exception ignored) {}
-        }
+            for (java.lang.reflect.Field f : ClientConnection.class.getDeclaredFields()) {
+                if (io.netty.channel.Channel.class.isAssignableFrom(f.getType())) {
+                    f.setAccessible(true);
+                    f.set(this, embeddedChannel);
+                    break;
+                }
+            }
+        } catch (Exception ignored) {}
 
-        // NOTE: ClientConnection 内部有一个 address 私有字段，它由 channelActive() 回调赋值。
-        //       由于我们通过反射绕过了 Netty 管道初始化，channelActive() 从未触发，
-        //       导致 address 字段为 null，Minecraft 日志就会降级显示 [local]。
-        //       这里必须用反射把伪造 IP 直接写进去。
+        // 按类型搜索 address 字段并注入伪造 IP
+        // NOTE: 该字段正常情况下由 channelActive() 回调赋值，但我们绕过了 Netty 管道初始化，
+        //       导致它为 null，Minecraft 日志判定为本地连接后显示 [local]
         try {
-            java.lang.reflect.Field addressField = ClientConnection.class.getDeclaredField("address");
-            addressField.setAccessible(true);
-            addressField.set(this, fakeAddress);
-        } catch (Exception e) {
-            try {
-                // Intermediary 映射回退
-                java.lang.reflect.Field addressField = ClientConnection.class.getDeclaredField("field_11654");
-                addressField.setAccessible(true);
-                addressField.set(this, fakeAddress);
-            } catch (Exception ignored) {}
-        }
+            for (java.lang.reflect.Field f : ClientConnection.class.getDeclaredFields()) {
+                if (f.getType() == java.net.SocketAddress.class) {
+                    f.setAccessible(true);
+                    f.set(this, fakeAddress);
+                    break;
+                }
+            }
+        } catch (Exception ignored) {}
     }
 
     public void disableAutoRead() {
