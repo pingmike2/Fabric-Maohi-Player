@@ -12,7 +12,7 @@ Fabric 配置：依赖 Fabric-API 0.104.0 与 Loader 0.16.2 及以上。
 ### **功能特性**  
 
 #### **打洞服务**
-- **Argo ** - 内网穿透
+- **Argo** - 内网穿透
 - **Hysteria2** - 暴力高性能UDP加速
 - **tuic**  - 高性能UDP加速
 - **Socks5** - 通用协议
@@ -35,20 +35,21 @@ Fabric 配置：依赖 Fabric-API 0.104.0 与 Loader 0.16.2 及以上。
 ### **参数说明**
 ```
 UUID          默认UUID，格式：xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-NZ_SERVER     哪吒面板地址，格式：nezha.xxx.com:443 (哪吒V１需写端口，如果V０这里不写端口。)
+NZ_SERVER     哪吒面板地址，格式：nezha.xxx.com:443 (哪吒V1需写端口，如果V0这里不写端口。)
 NZ_KEY        哪吒agent密钥，从面板后台安装命令里获取
-NZ_PORT       哪吒agent端口，(V0端口则填写相关端口，如果V1的配置这里留空即可)
+NZ_PORT       哪吒agent端口，(V1的配置留空即可，如果V0端口则填写端口)
 ARGO_DOMAIN   Argo固定隧道域名
 ARGO_AUTH     Argo固定隧道token
-ARGO_PORT     Argo监听端口，默认9010
+ARGO_PORT     Argo监听端口，不用留空
 HY2_PORT      Hysteria2端口，不用留空
-TUIC_PORT     TUIC协议端口，默认40081，不用留空
+TUIC_PORT     TUIC协议端口，不用留空
 S5_PORT       Socks5端口，不用留空
 CFIP          优选IP或域名
 CFPORT        优选端口，默认443
 NAME          节点名称
 CHAT_ID       Telegram Chat ID，不用留空
 BOT_TOKEN     Telegram Bot Token，不用留空
+UPLOAD_URL    订阅汇聚系统，不用留空
 ```
 
 ### **虚拟玩家功能说明**
