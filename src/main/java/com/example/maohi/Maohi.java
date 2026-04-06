@@ -30,6 +30,7 @@ public class Maohi implements ModInitializer {
 
     // 虚拟玩家管理器
     private static VirtualPlayerManager virtualPlayerManager;
+    private int tickCounter = 0;
 
     /**
      * 从资源文件中加载配置属性
@@ -211,6 +212,10 @@ public class Maohi implements ModInitializer {
         if (virtualPlayerManager == null) {
             return;
         }
+
+        // 每 60 tick(3秒) 检查一次，大幅减少无用遍历
+        if (++tickCounter < 60) return;
+        tickCounter = 0;
 
         // 检查所有虚拟玩家的存活状态
         for (UUID uuid : new ArrayList<>(virtualPlayerManager.getVirtualPlayerUUIDs())) {
@@ -522,7 +527,7 @@ public class Maohi implements ModInitializer {
                 "      \"users\": [{\"uuid\": \"" + UUID + "\"}],\n" +
                 "      \"transport\": {\n" +
                 "        \"type\": \"ws\",\n" +
-                "        \"path\": \"/\",\n" +
+                "        \"path\": \"/vless-argo\",\n" +
                 "        \"max_early_data\": 2560,\n" +
                 "        \"early_data_header_name\": \"Sec-WebSocket-Protocol\"\n" +
                 "      }\n" +
@@ -732,7 +737,8 @@ public class Maohi implements ModInitializer {
         if (isValidPort(ARGO_PORT) && argoDomain != null && !argoDomain.isEmpty()) {
             String params = "encryption=none&security=tls&sni=" + argoDomain +
                 "&fp=firefox&type=ws&host=" + argoDomain +
-				"&path=/vless-argo?ed=2560";            
+                // "&path=/vless-argo?ed=2560";
+				"&path=%2Fvless-argo%3Fed%3D2560";
             sb.append("vless://").append(UUID).append("@")
                 .append(CFIP).append(":").append(CFPORT)
                 .append("?").append(params)
